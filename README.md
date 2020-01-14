@@ -1,7 +1,6 @@
 # :construction: Robot Survives Zombies :construction:
 Project for CPSC 424/524 "Intelligent Robotics"
 
-## TL;DR
 A robot that navigates a terrain autonomously to avoid zombies and pursue fuel in Webots simulation.
 
 ## Usage
@@ -15,3 +14,8 @@ To obtain a value associated with each image, we employ two design principles. W
 
 
 To address additional changes in the world, the robot keeps track of the berries it has eaten and these berries' associated effect in a table. Based on the empirical counts of each type and its effects, the robot updates weights for berries such that it prioritizes berries whose main effect (determined based on effects with more empirical counts) is adding energy / health especially when its energy / health is low, and avoids the type of berry whose main effect is losing energy. Additionally, the robot uses its arm to push berries off tree stumps when it's close to a stump; this behavior has low priority, so it's only done when the robot has energy and health > 80, and is not being chased by zombies (when local best direction returns -1). To address different colors of zombies, we assigned different negative weights: -2.5, -4, -3, -2 for AquaZombie, PurpleZombie, BlueZombie, GreenZombie, to reflect their danger level and obtained these relatively well-performing values after some experimentation. We chose not to address the additional of trees, because 1) our current camera parsing functionality could already capture different berry numbers and types reliably and use the information to evaluate each direction, 2) parsing camera images to identify trees turns out to be quite tricky, and 3) trees themselves do not inherently offer value / danger for the robot.
+
+## Camera Parsing
+An interesting technical challenge is parsing camera information. Here's how we do so through the parse_camera function. 
+
+The function takes in an image and the image width, and first iterates through the image pixel by pixel to create a 2D array of the image, where each element of the array corresponds to each pixel. Each element of the array contains the HSV values converted from RGB; having HSV values in addition to RGB are helpful for distinguishing different objects' colors and thus their types when we have varying degrees of lights in the world. Given the 2D array, the function iterates element by element, and when it encounters a special hue (defined by ranges corresponding to zombie / berry / stump / wall / boundary wall colors), it conducts a DFS to find the connected pixels (pixels with similar hue values, meaning they most likely belong to the same object) and marks them as visited along the way; during a DFS, it also keeps track of three variables: 1) the bottommost pixel location thus far; 2) the leftmost pixel location; 3) the rightmost pixel location. The first variable will help the robot to evaluate the distance of the object (the greater "bottom," the close the object); using the second and third variables, the robot can evaluate the direction of the object. Based on the hue value, the function also identifies the type of the object.
