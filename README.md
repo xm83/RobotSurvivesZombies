@@ -1,5 +1,5 @@
 # :construction: Robot Survives Zombies :construction:
-Project for CPSC 524 "Intelligent Robotics"
+Project for CPSC 424/524 "Intelligent Robotics"
 
 ## TL;DR
 A robot that navigates a terrain autonomously to avoid zombies and pursue fuel in Webots simulation.
