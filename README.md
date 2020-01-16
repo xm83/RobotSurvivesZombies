@@ -1,4 +1,4 @@
-# :construction: Robot Survives Zombies :construction:
+# :construction: Youbot Survives Zombies :construction:
 Project for CPSC 424/524 "Intelligent Robotics"
 
 A robot that navigates a terrain autonomously to avoid zombies and pursue fuel in Webots simulation.
