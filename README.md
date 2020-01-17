@@ -1,7 +1,7 @@
 # :construction: Youbot Survives Zombies :construction:
 Project for CPSC 424/524 "Intelligent Robotics"
 
-A robot that navigates a terrain autonomously to avoid zombies and pursue fuel in Webots simulation.
+A robot that navigates a terrain autonomously to avoid zombies 🧟 and pursue fuel :strawberry: in Webots simulation by implemeneting a global DAMN voting architecture and a local subsumption architecture in C.
 
 ## Usage
 First install [Webots](https://cyberbotics.com/) if you haven't done so. Then choose a world. Then start the simulation and the robot will start running!
